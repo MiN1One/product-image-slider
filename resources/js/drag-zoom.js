@@ -104,7 +104,7 @@ class DragZoom {
       return;
     }
 
-    zoomingIn ? this.scale *= 1.2 : this.scale /= 1.2;
+    zoomingIn ? this.scale *= (delta / 100) : this.scale /= (delta / 100);
     
     this.xCoor = mouseX - xs * this.scale;
     this.yCoor = mouseY - ys * this.scale;
