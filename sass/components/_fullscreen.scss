@@ -31,7 +31,7 @@
     width: 8.5rem;
     height: 10rem;
     background: #fff;
-    border: .5rem solid rgba(0, 0, 0, .75);
+    border: .5rem solid rgba(0, 0, 0, .8);
 
     &:not(:first-child) { border-top: none; }
   }
@@ -59,6 +59,7 @@
 
   &__btn-group {
     position: absolute;
+    z-index: 15;
     bottom: 1rem;
     right: 1rem;
     padding: .4rem;
@@ -82,6 +83,8 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+
+    // &--main { width: auto; }
   }
 }
 

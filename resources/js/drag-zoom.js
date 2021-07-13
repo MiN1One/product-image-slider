@@ -5,6 +5,7 @@ class DragZoom {
   xCoor = 0;
   yCoor = 0;
   holdStart = { x: 0, y: 0 };
+  innerImage;
 
   constructor(container, zoomInEl, zoomOutEl) {
     this.zoomContainer = container;
@@ -12,6 +13,7 @@ class DragZoom {
     this.zoomOutEl = zoomOutEl;
 
     this.addListeners();
+    this.getImage();
   }
 
   resetZoom() {
@@ -21,7 +23,17 @@ class DragZoom {
     this.yCoor = 0;
     this.holdStart = { x: 0, y: 0 };
 
+    this.getImage();
     this.transform();
+  }
+
+  getImage() {
+    if (!this.zoomContainer) return;
+
+    const child = this.zoomContainer.children[0];
+    if (child?.tagName === 'IMG') {
+      this.innerImage = child;
+    }
   }
 
   addListeners() {
@@ -38,6 +50,7 @@ class DragZoom {
 
   onMouseUp() {
     this.holding = false;
+    this.zoomContainer.classList.remove('zoom-active');
   }
 
   onMouseMove(e) {
@@ -52,9 +65,13 @@ class DragZoom {
     ) {
       return;
     }
-    
-    this.xCoor = (e.clientX - this.holdStart.x);
-    this.yCoor = (e.clientY - this.holdStart.y);
+
+    // const containerDimensions = this.zoomContainer.getBoundingClientRect();
+
+    // this.xCoor = (e.clientX - containerDimensions.left) - this.holdStart.x;
+    // this.yCoor = (e.clientY - containerDimensions.top) - this.holdStart.y;
+    this.xCoor = e.clientX - this.holdStart.x;
+    this.yCoor = e.clientY - this.holdStart.y;
 
     this.transform();
   }
@@ -62,9 +79,23 @@ class DragZoom {
   onMouseHold(e) {
     e.preventDefault();
 
+    // const containerDimensions = this.zoomContainer.getBoundingClientRect();
+    // this.holdStart.x = (e.clientX - containerDimensions.left) - this.xCoor;
+    // this.holdStart.y = (e.clientY - containerDimensions.top) - this.yCoor;
+
     this.holdStart.x = e.clientX - this.xCoor;
     this.holdStart.y = e.clientY - this.yCoor;
+
     this.holding = true;
+    this.zoomContainer.classList.add('zoom-active');
+  }
+
+  limitZoom() {
+    if (this.scale > this.maxScale) {
+      this.scale = this.maxScale;
+    }
+
+
   }
 
   preventZoomOut() {
@@ -84,18 +115,28 @@ class DragZoom {
       return;
     }
 
+    // const containerDimensions = this.zoomContainer.getBoundingClientRect();
+
     let xs, ys, delta, mouseY, mouseX, zoomingIn;
     if (zoom) {
+      // mouseX = containerDimensions.width / 2;
+      // mouseY = containerDimensions.height / 2;
       mouseX = window.innerWidth / 2;
       mouseY = window.innerHeight / 2;
+
       delta = zoom;
     } else {
+      // mouseX = e.clientX - containerDimensions.left;
+      // mouseY = e.clientY - containerDimensions.top;
+
       mouseX = e.clientX;
       mouseY = e.clientY;
+
       delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
     }
 
     zoomingIn = delta > 0;
+    const zoomSize = Math.abs(delta) / 100;
 
     xs = (mouseX - this.xCoor) / this.scale;
     ys = (mouseY - this.yCoor) / this.scale;
@@ -104,17 +145,17 @@ class DragZoom {
       return;
     }
 
-    zoomingIn ? this.scale *= (delta / 100) : this.scale /= (delta / 100);
+    zoomingIn ? this.scale *= zoomSize : this.scale /= zoomSize;
+
+    this.limitZoom();
     
     this.xCoor = mouseX - xs * this.scale;
     this.yCoor = mouseY - ys * this.scale;
 
     this.preventZoomOut();
-    this.transform();
   }
 
   transform() {
-    this.zoomContainer.classList.toggle('zoom-active', this.holding);
     this.zoomContainer.style.transform = `translate(${this.xCoor}px, ${this.yCoor}px) scale(${this.scale})`;
   }
 }

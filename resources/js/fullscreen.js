@@ -94,7 +94,7 @@ class FullScreen {
     }
 
     img.src = activeImageCont.children[0].src;
-    img.className = 'fullscreen__img';
+    img.className = 'fullscreen__img fullscreen__img--main';
     img.alt = 'product-full-image';
 
     this.imageContainer.appendChild(img);
