@@ -43,6 +43,15 @@ class FullScreen {
   addListeners() {
     if (!this.screenOpenEl || !this.screenCloseEl) return;
 
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        this.mainContainer.classList.remove('fullscreen--active');
+        this.isFullScreen = false;
+        
+        this.onFullScreenChange && this.onFullScreenChange();
+      }
+    });
+
     this.screenCloseEl.addEventListener('click', this.toggleVisibility.bind(this));
     this.screenOpenEl.addEventListener('click', this.toggleVisibility.bind(this));
   }
