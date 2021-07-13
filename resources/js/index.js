@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // FULL SCREEN ZOOM
   const zoomInEl = document.querySelector('.fullscreen__btn-zoom--in');
   const zoomOutEl = document.querySelector('.fullscreen__btn-zoom--out');
+  
   const zoom = new DragZoom(params.imageContainer, zoomInEl, zoomOutEl);
 
   // FULL SCREEN

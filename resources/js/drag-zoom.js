@@ -1,5 +1,6 @@
 class DragZoom {
   scale = 1;
+  maxScale = 5;
   holding = false;
   xCoor = 0;
   yCoor = 0;
@@ -83,7 +84,7 @@ class DragZoom {
       return;
     }
 
-    let xs, ys, delta, mouseY, mouseX;
+    let xs, ys, delta, mouseY, mouseX, zoomingIn;
     if (zoom) {
       mouseX = window.innerWidth / 2;
       mouseY = window.innerHeight / 2;
@@ -94,10 +95,16 @@ class DragZoom {
       delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
     }
 
+    zoomingIn = delta > 0;
+
     xs = (mouseX - this.xCoor) / this.scale;
     ys = (mouseY - this.yCoor) / this.scale;
 
-    (delta > 0) ? this.scale *= 1.2 : this.scale /= 1.2;
+    if (this.scale >= this.maxScale && zoomingIn) {
+      return;
+    }
+
+    zoomingIn ? this.scale *= 1.2 : this.scale /= 1.2;
     
     this.xCoor = mouseX - xs * this.scale;
     this.yCoor = mouseY - ys * this.scale;
