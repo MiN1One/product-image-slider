@@ -99,54 +99,6 @@ class FullScreen {
 
       wrapper.appendChild(thumbnailItem);
     });
-    this.thumbnails.forEach((el, i) => {
-      const thumbnailItem = document.createElement('div');
-      thumbnailItem.className = 'fullscreen__thumbnails-item swiper-slide';
-      thumbnailItem.tabIndex = 0;
-
-      thumbnailItem.addEventListener('click', this.onChangeImageFromThumbnail.bind(this, i));
-
-      const img = new Image();
-      img.src = el.src;
-      img.className = 'fullscreen__img';
-      img.alt = 'full-product-thumbnail';
-
-      thumbnailItem.appendChild(img);
-
-      wrapper.appendChild(thumbnailItem);
-    });
-    this.thumbnails.forEach((el, i) => {
-      const thumbnailItem = document.createElement('div');
-      thumbnailItem.className = 'fullscreen__thumbnails-item swiper-slide';
-      thumbnailItem.tabIndex = 0;
-
-      thumbnailItem.addEventListener('click', this.onChangeImageFromThumbnail.bind(this, i));
-
-      const img = new Image();
-      img.src = el.src;
-      img.className = 'fullscreen__img';
-      img.alt = 'full-product-thumbnail';
-
-      thumbnailItem.appendChild(img);
-
-      wrapper.appendChild(thumbnailItem);
-    });
-    this.thumbnails.forEach((el, i) => {
-      const thumbnailItem = document.createElement('div');
-      thumbnailItem.className = 'fullscreen__thumbnails-item swiper-slide';
-      thumbnailItem.tabIndex = 0;
-
-      thumbnailItem.addEventListener('click', this.onChangeImageFromThumbnail.bind(this, i));
-
-      const img = new Image();
-      img.src = el.src;
-      img.className = 'fullscreen__img';
-      img.alt = 'full-product-thumbnail';
-
-      thumbnailItem.appendChild(img);
-
-      wrapper.appendChild(thumbnailItem);
-    });
 
     this.swiper && this.swiper.swiper.updateSlides();
   }
