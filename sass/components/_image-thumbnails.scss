@@ -1,9 +1,9 @@
 .image-thumbnails {
   display: flex;
-
+  
   &__item {
-    width: 7.5rem;
     height: auto;
+    width: 10rem;
     transition: opacity .5s ease-in-out;
 
     &:hover,

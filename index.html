@@ -64,47 +64,50 @@
         </div>
     
         <div class="image-thumbnails">
-          <figure class="image-thumbnails__item" tabindex="0">
+          <div class="image-thumbnails__item" tabindex="0">
             <img
               height="100%"
               width="100%"
               src="resources/images/kas_plushrobe_taupe_closed_highres.jpg" 
               alt="product-thumbnail">
-          </figure>
-          <figure class="image-thumbnails__item" tabindex="0">
+          </div>
+          <div class="image-thumbnails__item" tabindex="0">
             <img
               height="100%"
               width="100%"
               src="resources/images/kas_plushrobe_gray_open_highres.jpg" 
               alt="product-thumbnail">
-          </figure>
+          </div>
         </div>
       </div>
     </div>
-    <div class="fullscreen">
-      <figure class="fullscreen__figure">
-      </figure>
-      <div class="fullscreen__thumbnails">
-      </div>
-      <button class="fullscreen__btn-close">
-        <svg class="icon">
-          <use xlink:href="resources/svg/sprite.svg#close-outline"></use>
+  </main>
+
+
+  <div class="fullscreen">
+    <figure class="fullscreen__figure">
+    </figure>
+    <div class="fullscreen__thumbnails">
+      <div class="swiper-wrapper"></div>
+    </div>
+    <button class="fullscreen__btn-close">
+      <svg class="icon">
+        <use xlink:href="resources/svg/sprite.svg#close-outline"></use>
+      </svg>
+    </button>
+    <div class="fullscreen__btn-group">
+      <button class="fullscreen__btn-zoom fullscreen__btn-zoom--in">
+        <svg class="icon--xs">
+          <use xlink:href="resources/svg/sprite.svg#add-outline"></use>
         </svg>
       </button>
-      <div class="fullscreen__btn-group">
-        <button class="fullscreen__btn-zoom fullscreen__btn-zoom--in">
-          <svg class="icon--xs">
-            <use xlink:href="resources/svg/sprite.svg#add-outline"></use>
-          </svg>
-        </button>
-        <button class="fullscreen__btn-zoom fullscreen__btn-zoom--out">
-          <svg class="icon--xs">
-            <use xlink:href="resources/svg/sprite.svg#remove-outline"></use>
-          </svg>
-        </button>
-      </div>
+      <button class="fullscreen__btn-zoom fullscreen__btn-zoom--out">
+        <svg class="icon--xs">
+          <use xlink:href="resources/svg/sprite.svg#remove-outline"></use>
+        </svg>
+      </button>
     </div>
-  </main>
+  </div>
 
   <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"

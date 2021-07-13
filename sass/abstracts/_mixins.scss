@@ -3,3 +3,26 @@
   align-items: center;
   justify-content: center;
 }
+
+@mixin respond($breakpoint) {
+  @if ($breakpoint == 'xl') {
+    // 1600
+    @media screen and (min-width: 100em) { @content };
+  } 
+  @if ($breakpoint == 'tablet') {
+    // 1024
+    @media screen and (max-width: 64em) { @content };
+  }
+  @if ($breakpoint == 'mid') {
+    // 768
+    @media only screen and (max-width: 48em) { @content };
+  }
+  @if ($breakpoint == 'sm') {
+    // 480
+    @media screen and (max-width: 30em) { @content };
+  }
+  @if ($breakpoint == 'xs') {
+    // 300
+    @media screen and (max-width: 18.75em) { @content };
+  }
+}

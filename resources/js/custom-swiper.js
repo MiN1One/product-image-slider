@@ -1,18 +1,26 @@
 class CustomSwiper {
   constructor (container, options, elements) {
     this.swiper = new Swiper(container, {
-      ...options,
+
       simulateTouch: false,
-      lazy: true,
-      preloadImages: false,
+      // preloadImages: false,
+      ...options,
+      breakpoints: {
+        ...options?.breakpoints,
+        300: {
+          simulateTouch: true
+        }
+      },
       navigation: {
         nextEl: `${container} .btn-slider--next`,
         prevEl: `${container} .btn-slider--prev`,
         disabledClass: 'btn--disabled'
       }
+      
     });
 
     this.thumbNailElements = elements;
+
     this.listenForSlideChange();
   }
 

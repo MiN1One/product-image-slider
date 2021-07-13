@@ -1,11 +1,10 @@
-class DragZoom {
+class DragFullScreenZoom {
   scale = 1;
   maxScale = 5;
   holding = false;
   xCoor = 0;
   yCoor = 0;
   holdStart = { x: 0, y: 0 };
-  innerImage;
 
   constructor(container, zoomInEl, zoomOutEl) {
     this.zoomContainer = container;
@@ -13,7 +12,6 @@ class DragZoom {
     this.zoomOutEl = zoomOutEl;
 
     this.addListeners();
-    this.getImage();
   }
 
   resetZoom() {
@@ -23,17 +21,7 @@ class DragZoom {
     this.yCoor = 0;
     this.holdStart = { x: 0, y: 0 };
 
-    this.getImage();
     this.transform();
-  }
-
-  getImage() {
-    if (!this.zoomContainer) return;
-
-    const child = this.zoomContainer.children[0];
-    if (child?.tagName === 'IMG') {
-      this.innerImage = child;
-    }
   }
 
   addListeners() {
@@ -41,7 +29,10 @@ class DragZoom {
 
     this.zoomContainer.addEventListener('mousedown', this.onMouseHold.bind(this));
     this.zoomContainer.addEventListener('mouseup', this.onMouseUp.bind(this));
+
     this.zoomContainer.addEventListener('mousemove', this.onMouseMove.bind(this));
+    this.zoomContainer.addEventListener('touchmove', this.onMouseMove.bind(this));
+
     this.zoomContainer.addEventListener('mousewheel', this.onMouseScroll.bind(this));
 
     this.zoomInEl && this.zoomInEl.addEventListener('click', (e) => this.onMouseScroll(e, 120));
@@ -74,6 +65,21 @@ class DragZoom {
     this.yCoor = e.clientY - this.holdStart.y;
 
     this.transform();
+  }
+
+  animateUI() {
+    const zoomed = this.scale > 1;
+    const zoomReachedMax = this.scale >= 1 && this.scale < this.maxScale;
+
+    if (this.zoomInEl) {
+      this.zoomInEl.disabled = !zoomReachedMax;
+    }
+    
+    if (this.zoomOutEl) {
+      this.zoomOutEl.disabled = !zoomed;
+    }
+
+    this.zoomContainer.classList.toggle('zoomed', zoomed);
   }
 
   onMouseHold(e) {
@@ -156,6 +162,7 @@ class DragZoom {
   }
 
   transform() {
+    this.animateUI();
     this.zoomContainer.style.transform = `translate(${this.xCoor}px, ${this.yCoor}px) scale(${this.scale})`;
   }
 }
