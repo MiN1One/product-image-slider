@@ -13,11 +13,11 @@
   
   <main>
     <div class="container">
-      <div class="images">
-        <div class="image-preview">
+      <div class="image-preview">
+        <div class="image-preview__main">
           <div class="swiper-container image-preview__images">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
+              <div class="swiper-slide image-preview__image-item">
                 <a href="resources/images/kas_plushrobe_taupe_closed_highres.jpg">
                   <img 
                     width="100%"
@@ -30,7 +30,7 @@
                   </div>
                 </a>
               </div>
-              <div class="swiper-slide">
+              <div class="swiper-slide image-preview__image-item">
                 <a href="resources/images/kas_plushrobe_gray_open_highres.jpg">
                   <img 
                     width="100%"
@@ -45,12 +45,12 @@
               </div>
             </div>
     
-            <button class="btn btn--prev">
+            <button class="btn-slider btn-slider--prev">
               <svg class="icon">
                 <use xlink:href="resources/svg/sprite.svg#chevron-thin-left"></use>
               </svg>
             </button>
-            <button class="btn btn--next">
+            <button class="btn-slider btn-slider--next">
               <svg class="icon">
                 <use xlink:href="resources/svg/sprite.svg#chevron-thin-right"></use>
               </svg>
@@ -91,6 +91,18 @@
           <use xlink:href="resources/svg/sprite.svg#close-outline"></use>
         </svg>
       </button>
+      <div class="fullscreen__btn-group">
+        <button class="fullscreen__btn-zoom fullscreen__btn-zoom--in">
+          <svg class="icon--xs">
+            <use xlink:href="resources/svg/sprite.svg#add-outline"></use>
+          </svg>
+        </button>
+        <button class="fullscreen__btn-zoom fullscreen__btn-zoom--out">
+          <svg class="icon--xs">
+            <use xlink:href="resources/svg/sprite.svg#remove-outline"></use>
+          </svg>
+        </button>
+      </div>
     </div>
   </main>
 
@@ -103,8 +115,9 @@
   <script src="resources/vendor/easyzoom.js"></script>
 
   <!-- <script src="resources/js/image-zoom.js"></script> -->
-  <script src="resources/js/fullscreen.js"></script>
+  <script src="resources/js/drag-zoom.js"></script>
   <script src="resources/js/custom-swiper.js"></script>
+  <script src="resources/js/fullscreen.js"></script>
   <script src="resources/js/index.js"></script>
 </body>
 </html>

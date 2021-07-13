@@ -1,0 +1,13 @@
+.image-thumbnails {
+  display: flex;
+
+  &__item {
+    width: 7.5rem;
+    height: auto;
+    transition: opacity .5s ease-in-out;
+
+    &:hover,
+    &:focus,
+    &--active { opacity: .5; }
+  }
+}

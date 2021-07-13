@@ -1,7 +1,13 @@
 @import './abstracts/variables';
+@import './abstracts/mixins';
+
 @import './base/base';
+@import './base/row';
+
 @import './UI/buttons';
+@import './UI/icon';
+@import './UI/loader';
 
 @import './components/fullscreen';
-@import './components/image-main';
+@import './components/image-preview';
 @import './components/image-thumbnails';

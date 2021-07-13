@@ -6,8 +6,8 @@ class CustomSwiper {
       lazy: true,
       preloadImages: false,
       navigation: {
-        nextEl: '.btn--next',
-        prevEl: '.btn--prev',
+        nextEl: `${container} .btn-slider--next`,
+        prevEl: `${container} .btn-slider--prev`,
         disabledClass: 'btn--disabled'
       }
     });
@@ -27,17 +27,15 @@ class CustomSwiper {
   thumbToggleActiveItem() {
     this.thumbNailElements.forEach((el, i) => {
       if (this.swiper.activeIndex === i) {
-        el.classList.add('thumb-active');
+        el.classList.add('image-thumbnails__item--active');
       } else {
-        el.classList.remove('thumb-active');
+        el.classList.remove('image-thumbnails__item--active');
       }
     });
   }
 
   onClickThumbnail(index) {
     this.swiper.slideTo(index, 0);
-
-    this.thumbToggleActiveItem();
   }
 
   attachThumbnailClickHandler() {

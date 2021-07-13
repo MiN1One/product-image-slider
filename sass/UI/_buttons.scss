@@ -1,0 +1,21 @@
+.btn-slider {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+
+  &--prev { left: 0; }
+  &--next { right: 0; }
+  &--disabled { opacity: .7; }
+}
+
+.btn-zoom {
+  @include centerFlex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  width: 4rem;
+  height: 4rem;
+  background: rgba(255, 255, 255, .5);
+}

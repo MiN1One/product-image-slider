@@ -1,0 +1,30 @@
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+
+  &__spinner {
+    display: inline-block;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-width: .2rem;
+    border-style: solid;
+    border-radius: 50%;
+    border-color: #f5f4b6 #f5f4b6 #f5f4b6 #a8a8a8;
+    animation: spin 1s ease-in-out infinite;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.swiper-lazy-loading + .loader { display: inline-block; }
+.swiper-lazy-loaded + .loader { display: none; }
