@@ -81,7 +81,7 @@
     @include centerFlex;
     width: 2.15rem;
     height: 2.15rem;
-    background: #c2c2c2;
+    background: #d1d1d199;
     border-radius: 2px;
 
     @include respond('mid') {
@@ -89,7 +89,7 @@
       height: 3.5rem;
     }
 
-    &:disabled { background: #707070; }
+    &:disabled { background: #5c5c5c; }
 
     &:first-child { margin-bottom: .4rem; }
   }

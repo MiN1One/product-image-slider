@@ -52,15 +52,14 @@ class DragFullScreenZoom {
       !this.holding ||
       this.xCoor > 0 || 
       this.yCoor > 0 ||
-      this.scale < 1
+      this.scale === 1
     ) {
       return;
     }
 
-    // const containerDimensions = this.zoomContainer.getBoundingClientRect();
-
     // this.xCoor = (e.clientX - containerDimensions.left) - this.holdStart.x;
     // this.yCoor = (e.clientY - containerDimensions.top) - this.holdStart.y;
+
     this.xCoor = e.clientX - this.holdStart.x;
     this.yCoor = e.clientY - this.holdStart.y;
 
@@ -100,8 +99,6 @@ class DragFullScreenZoom {
     if (this.scale > this.maxScale) {
       this.scale = this.maxScale;
     }
-
-
   }
 
   preventZoomOut() {
@@ -121,12 +118,11 @@ class DragFullScreenZoom {
       return;
     }
 
-    // const containerDimensions = this.zoomContainer.getBoundingClientRect();
-
     let xs, ys, delta, mouseY, mouseX, zoomingIn;
     if (zoom) {
       // mouseX = containerDimensions.width / 2;
       // mouseY = containerDimensions.height / 2;
+
       mouseX = window.innerWidth / 2;
       mouseY = window.innerHeight / 2;
 

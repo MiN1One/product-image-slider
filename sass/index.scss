@@ -3,12 +3,15 @@
 @import './abstracts/animations';
 
 @import './base/base';
-@import './base/row';
 
 @import './UI/buttons';
 @import './UI/icon';
 @import './UI/loader';
 
+@import './layout/product';
+@import './layout/row';
+
+@import './components/product-info';
 @import './components/fullscreen';
 @import './components/image-preview';
 @import './components/image-thumbnails';

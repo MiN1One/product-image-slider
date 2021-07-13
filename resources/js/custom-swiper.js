@@ -3,7 +3,7 @@ class CustomSwiper {
     this.swiper = new Swiper(container, {
 
       simulateTouch: false,
-      // preloadImages: false,
+      preloadImages: false,
       ...options,
       breakpoints: {
         ...options?.breakpoints,

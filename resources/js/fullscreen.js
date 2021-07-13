@@ -35,7 +35,7 @@ class FullScreen {
       slidesPerView: 4,
       preloadImages: true,
       updateOnImagesReady: true,
-      mouseWheel: true,
+      mousewheel: true,
       simulateTouch: true
     });
   }

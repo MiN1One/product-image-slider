@@ -1,0 +1,14 @@
+.product {
+  font-size: 3rem;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    @include respond('mid') {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}

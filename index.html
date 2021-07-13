@@ -11,73 +11,78 @@
 </head>
 <body>
   
-  <main>
+  <main class="product">
     <div class="container">
-      <div class="image-preview">
-        <div class="image-preview__main">
-          <div class="swiper-container image-preview__images">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide image-preview__image-item">
-                <a href="resources/images/kas_plushrobe_taupe_closed_highres.jpg">
-                  <img 
-                    width="100%"
-                    height="100%"
-                    data-src="resources/images/kas_plushrobe_taupe_closed_highres.jpg" 
-                    alt="product-image"
-                    class="swiper-lazy">
-                  <div class="loader">
-                    <div class="loader__spinner"></div>
-                  </div>
-                </a>
+      <div class="product__content">
+        <div class="image-preview">
+          <div class="image-preview__main">
+            <div class="swiper-container image-preview__images">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide image-preview__image-item">
+                  <a href="resources/images/kas_plushrobe_taupe_closed_highres.jpg">
+                    <img 
+                      width="100%"
+                      height="100%"
+                      data-src="resources/images/kas_plushrobe_taupe_closed_highres.jpg" 
+                      alt="product-image"
+                      class="swiper-lazy">
+                    <div class="loader">
+                      <div class="loader__spinner"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="swiper-slide image-preview__image-item">
+                  <a href="resources/images/kas_plushrobe_gray_open_highres.jpg">
+                    <img 
+                      width="100%"
+                      height="100%"
+                      data-src="resources/images/kas_plushrobe_gray_open_highres.jpg" 
+                      alt="product-image"
+                      class="swiper-lazy">
+                    <div class="loader">
+                      <div class="loader__spinner"></div>
+                    </div>
+                  </a>
+                </div>
               </div>
-              <div class="swiper-slide image-preview__image-item">
-                <a href="resources/images/kas_plushrobe_gray_open_highres.jpg">
-                  <img 
-                    width="100%"
-                    height="100%"
-                    data-src="resources/images/kas_plushrobe_gray_open_highres.jpg" 
-                    alt="product-image"
-                    class="swiper-lazy">
-                  <div class="loader">
-                    <div class="loader__spinner"></div>
-                  </div>
-                </a>
-              </div>
+      
+              <button class="btn-slider btn-slider--prev">
+                <svg class="icon">
+                  <use xlink:href="resources/svg/sprite.svg#chevron-thin-left"></use>
+                </svg>
+              </button>
+              <button class="btn-slider btn-slider--next">
+                <svg class="icon">
+                  <use xlink:href="resources/svg/sprite.svg#chevron-thin-right"></use>
+                </svg>
+              </button>
+              <button class="btn-zoom">
+                <svg class="icon">
+                  <use xlink:href="resources/svg/sprite.svg#zoom-in"></use>
+                </svg>
+              </button>
             </div>
-    
-            <button class="btn-slider btn-slider--prev">
-              <svg class="icon">
-                <use xlink:href="resources/svg/sprite.svg#chevron-thin-left"></use>
-              </svg>
-            </button>
-            <button class="btn-slider btn-slider--next">
-              <svg class="icon">
-                <use xlink:href="resources/svg/sprite.svg#chevron-thin-right"></use>
-              </svg>
-            </button>
-            <button class="btn-zoom">
-              <svg class="icon">
-                <use xlink:href="resources/svg/sprite.svg#zoom-in"></use>
-              </svg>
-            </button>
+          </div>
+      
+          <div class="image-thumbnails">
+            <div class="image-thumbnails__item" tabindex="0">
+              <img
+                height="100%"
+                width="100%"
+                src="resources/images/kas_plushrobe_taupe_closed_highres.jpg" 
+                alt="product-thumbnail">
+            </div>
+            <div class="image-thumbnails__item" tabindex="0">
+              <img
+                height="100%"
+                width="100%"
+                src="resources/images/kas_plushrobe_gray_open_highres.jpg" 
+                alt="product-thumbnail">
+            </div>
           </div>
         </div>
-    
-        <div class="image-thumbnails">
-          <div class="image-thumbnails__item" tabindex="0">
-            <img
-              height="100%"
-              width="100%"
-              src="resources/images/kas_plushrobe_taupe_closed_highres.jpg" 
-              alt="product-thumbnail">
-          </div>
-          <div class="image-thumbnails__item" tabindex="0">
-            <img
-              height="100%"
-              width="100%"
-              src="resources/images/kas_plushrobe_gray_open_highres.jpg" 
-              alt="product-thumbnail">
-          </div>
+        <div class="product-info">
+          <p>Some information</p>
         </div>
       </div>
     </div>
