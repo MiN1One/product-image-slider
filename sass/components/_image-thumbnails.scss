@@ -1,10 +1,16 @@
 .image-thumbnails {
   display: flex;
+  width: 95%;
+  height: 10rem;
   
   &__item {
-    height: auto;
-    width: 10rem;
     transition: opacity .5s ease-in-out;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
 
     &:hover,
     &:focus,

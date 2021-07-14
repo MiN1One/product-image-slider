@@ -22,6 +22,10 @@ class CustomSwiper {
     this.thumbNailElements = elements;
 
     this.listenForSlideChange();
+    
+    if (options?.lazy) {
+      this.swiper.on('lazyImageReady', () => this.swiper.update());
+    }
   }
 
   listenForSlideChange() {

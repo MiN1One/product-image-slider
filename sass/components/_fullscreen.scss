@@ -58,6 +58,11 @@
     border: .5rem solid rgba(0, 0, 0, .8);
 
     &:not(:first-child) { border-top: none; }
+
+    img {
+      max-width: 100%;
+      object-fit: contain;
+    }
   }
 
   &__figure.zoomed + &__thumbnails {

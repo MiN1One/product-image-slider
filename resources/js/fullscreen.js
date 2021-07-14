@@ -48,6 +48,7 @@ class FullScreen {
         this.mainContainer.classList.remove('fullscreen--active');
         this.isFullScreen = false;
         
+        document.documentElement.removeAttribute('style');
         this.onFullScreenChange && this.onFullScreenChange();
       }
     });
@@ -61,12 +62,10 @@ class FullScreen {
       this.closeFullscreen();
 
       this.isFullScreen = false;
-      document.documentElement.removeAttribute('style');
     } else {
       this.openFullscreen();
 
       this.isFullScreen = true;
-      document.documentElement.style.overflow = 'hidden';
     }
 
     this.mainContainer.classList.toggle('fullscreen--active');
@@ -123,7 +122,7 @@ class FullScreen {
       this.imageContainer.removeChild(this.imageContainer.children[0]);
     }
 
-    img.src = activeImageCont.children[0].src;
+    img.src = activeImageCont.children[0].dataset.srcMax;
     img.className = 'fullscreen__img fullscreen__img--main';
     img.alt = 'product-full-image';
 
@@ -141,6 +140,7 @@ class FullScreen {
       html.msRequestFullscreen();
     }
 
+    document.documentElement.style.overflow = 'hidden';
     this.renderMainViewImage();
     this.renderThumbnails();
   }
@@ -153,5 +153,7 @@ class FullScreen {
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
     }
+
+    document.documentElement.removeAttribute('style');
   }
 }

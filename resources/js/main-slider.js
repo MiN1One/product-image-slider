@@ -17,6 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
     boundSwiper: mainSlider
   };
 
+  // THUMBNAILs SWIPER
+  const thumbsSwiper = new CustomSwiper('.image-thumbnails', {
+    // centeredSlides: true,
+    // slidesPerView: 4,
+    simulateTouch: true,
+    mousewheel: true,
+    slidesPerView: 5,
+    // centeredSlides: true,
+    // loop: true,
+  });
+
   // FULL SCREEN ZOOM
   const zoomInEl = document.querySelector('.fullscreen__btn-zoom--in');
   const zoomOutEl = document.querySelector('.fullscreen__btn-zoom--out');
