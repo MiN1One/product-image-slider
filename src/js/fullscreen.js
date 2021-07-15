@@ -81,6 +81,13 @@ class FullScreen {
     this.renderMainViewImage();
   }
 
+  setLoading(isLoading, image) {
+    const loader = document.querySelector('.fullscreen .loader');
+
+    loader.style.display = isLoading ? 'flex' : 'none';
+    !isLoading && image.classList.remove('fullscreen__img--loading');
+  }
+
   renderThumbnails() {
     if (
       !this.thumbnailsContainer || 
@@ -124,9 +131,23 @@ class FullScreen {
       this.imageContainer.removeChild(this.imageContainer.children[0]);
     }
 
-    img.src = activeImageCont.children[0].dataset.srcMax;
-    img.className = 'fullscreen__img fullscreen__img--main';
+    img.className = 'fullscreen__img fullscreen__img--main fullscreen__img--loading';
     img.alt = 'product-full-image';
+
+    if (img) {
+      this.setLoading(true, img);
+      img.src = activeImageCont.children[0].dataset.srcMax;
+  
+      if (img.complete) {
+        this.setLoading(false, img);
+        img.onload = null;
+      } else {
+        img.onload = () => {
+          this.setLoading(false, img);
+          img.onload = null;
+        };
+      }
+    }
 
     this.imageContainer.appendChild(img);
   }

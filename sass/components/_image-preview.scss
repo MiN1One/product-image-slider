@@ -41,6 +41,8 @@
       display: block;
     }
 
+    a img { visibility: hidden; }
+
     img {
       max-width: initial !important;
       vertical-align: bottom;
