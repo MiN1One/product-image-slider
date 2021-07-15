@@ -1,3 +1,5 @@
+import CustomSwiper from './custom-swiper';
+
 class FullScreen {
   isFullScreen = false;
   swiper;
@@ -157,3 +159,5 @@ class FullScreen {
     document.documentElement.removeAttribute('style');
   }
 }
+
+export default FullScreen;

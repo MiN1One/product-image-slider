@@ -1,3 +1,7 @@
+import CustomSwiper from './custom-swiper';
+import DragFullScreenZoom from './drag-zoom';
+import FullScreen from './fullscreen';
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const thumbElements = Array.from(document.querySelectorAll('.image-thumbnails__item'));
@@ -18,14 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // THUMBNAILs SWIPER
-  const thumbsSwiper = new CustomSwiper('.image-thumbnails', {
-    // centeredSlides: true,
-    // slidesPerView: 4,
+  new CustomSwiper('.image-thumbnails', {
     simulateTouch: true,
     mousewheel: true,
     slidesPerView: 5,
-    // centeredSlides: true,
-    // loop: true,
+    breakpoints: {
+      200: { slidesPerView: 3 },
+      420: { slidesPerView: 4 }
+    }
   });
 
   // FULL SCREEN ZOOM

@@ -162,3 +162,5 @@ class DragFullScreenZoom {
     this.zoomContainer.style.transform = `translate(${this.xCoor}px, ${this.yCoor}px) scale(${this.scale})`;
   }
 }
+
+export default DragFullScreenZoom;

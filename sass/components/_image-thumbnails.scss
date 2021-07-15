@@ -2,6 +2,10 @@
   display: flex;
   width: 95%;
   height: 10rem;
+
+  @include respond('sm') {
+    height: 20vw;
+  }
   
   &__item {
     transition: opacity .5s ease-in-out;

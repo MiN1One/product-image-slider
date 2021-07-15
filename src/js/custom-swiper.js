@@ -7,8 +7,8 @@ class CustomSwiper {
       ...options,
       breakpoints: {
         ...options?.breakpoints,
-        300: {
-          simulateTouch: true
+        100: {
+          simulateTouch: true,
         }
       },
       navigation: {
@@ -60,3 +60,5 @@ class CustomSwiper {
     }
   }
 }
+
+export default CustomSwiper;
