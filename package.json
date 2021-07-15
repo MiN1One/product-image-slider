@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config=webpack.config.js"
+    "build": "webpack --config=webpack.config.js && sass --style=compressed sass/index.scss:dist/resources/css/style.min.css",
+    "start": "webpack serve --config=webpack.dev.js && sass --watch sass/index.scss:dist/resources/css/style.css"
   },
   "author": "",
   "license": "ISC",

@@ -1,22 +1,16 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/index.js',
   output: {
     publicPath: '/',
     path: path.join(__dirname, './dist'),
-    environment: {
-      arrowFunction: false,
-      bigIntLiteral: false,
-      const: false,
-      destructuring: false,
-      dynamicImport: false,
-      forOf: false,
-      module: false
-    },
     filename: 'product-image-slider.min.js'
+  },
+  devServer: {
+    contentBase: './dist',
+    overlay: true
   },
   module: {
     rules: [
@@ -30,10 +24,5 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': JSON.stringify('production')
-    })
-  ]
+  }
 }

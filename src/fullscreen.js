@@ -81,11 +81,25 @@ class FullScreen {
     this.renderMainViewImage();
   }
 
-  setLoading(isLoading, image) {
+  setLoading(image, src) {
+    if (!image) return;
+    
     const loader = document.querySelector('.fullscreen .loader');
 
-    loader.style.display = isLoading ? 'flex' : 'none';
-    !isLoading && image.classList.remove('fullscreen__img--loading');
+    loader.style.display = 'flex';
+    image.src = src;
+
+    if (image.complete) {
+      loader.style.display = 'none';
+      image.classList.remove('fullscreen__img--loading');
+      image.onload = null;
+    } else {
+      image.onload = () => {
+        loader.style.display = 'none';
+        image.classList.remove('fullscreen__img--loading');
+        image.onload = null;
+      };
+    }
   }
 
   renderThumbnails() {
@@ -134,20 +148,8 @@ class FullScreen {
     img.className = 'fullscreen__img fullscreen__img--main fullscreen__img--loading';
     img.alt = 'product-full-image';
 
-    if (img) {
-      this.setLoading(true, img);
-      img.src = activeImageCont.children[0].dataset.srcMax;
-  
-      if (img.complete) {
-        this.setLoading(false, img);
-        img.onload = null;
-      } else {
-        img.onload = () => {
-          this.setLoading(false, img);
-          img.onload = null;
-        };
-      }
-    }
+    const imageSrc = activeImageCont.children[0].dataset.srcMax;
+    this.setLoading(img, imageSrc);
 
     this.imageContainer.appendChild(img);
   }
