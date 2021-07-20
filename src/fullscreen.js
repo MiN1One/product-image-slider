@@ -11,7 +11,8 @@ class FullScreen {
     imageContainer,
     thumbnails,
     thumbnailsContainer,
-    boundSwiper,
+    boundSwiperMain,
+    boundSwiperThumbnails,
     onFullScreenChange
   }) {
     this.screenOpenEl = screenOpenEl;
@@ -20,7 +21,8 @@ class FullScreen {
     this.mainContainer = mainContainer;
     this.thumbnails = thumbnails;
     this.thumbnailsContainer = thumbnailsContainer;
-    this.boundSwiper = boundSwiper;
+    this.boundSwiperMain = boundSwiperMain;
+    this.boundSwiperThumbnails = boundSwiperThumbnails;
     this.onFullScreenChange = onFullScreenChange;
 
     this.addListeners();
@@ -76,7 +78,7 @@ class FullScreen {
   }
 
   onChangeImageFromThumbnail(index) {
-    this.boundSwiper.onClickThumbnail(index);
+    this.boundSwiperMain.swiper.slideTo(index, 0);
 
     this.renderMainViewImage();
   }
@@ -90,15 +92,15 @@ class FullScreen {
     image.src = src;
 
     if (image.complete) {
+      imageLoadingFinished();
+    } else {
+      image.onload = () => imageLoadingFinished();
+    }
+    
+    function imageLoadingFinished() {
       loader.style.display = 'none';
       image.classList.remove('fullscreen__img--loading');
       image.onload = null;
-    } else {
-      image.onload = () => {
-        loader.style.display = 'none';
-        image.classList.remove('fullscreen__img--loading');
-        image.onload = null;
-      };
     }
   }
 
@@ -131,7 +133,7 @@ class FullScreen {
       wrapper.appendChild(thumbnailItem);
     });
 
-    this.swiper && this.swiper.swiper.updateSlides();
+    this.swiper && this.swiper.swiper.update();
   }
 
   renderMainViewImage() {

@@ -1,5 +1,9 @@
+// import Swiper from 'swiper';
+
 class CustomSwiper {
-  constructor (container, options, elements) {
+  constructor (container, options) {
+    this.container = container;
+
     this.swiper = new Swiper(container, {
 
       simulateTouch: false,
@@ -11,6 +15,7 @@ class CustomSwiper {
           simulateTouch: true,
         }
       },
+      updateOnImagesReady: true,
       navigation: {
         nextEl: `${container} .btn-slider--next`,
         prevEl: `${container} .btn-slider--prev`,
@@ -19,45 +24,85 @@ class CustomSwiper {
       
     });
 
-    this.thumbNailElements = elements;
+    this.swiper.on('lazyImageReady', () => this.swiper.update());
+  }
 
-    this.listenForSlideChange();
+  renderSlides(images) {
+    const slides = images.map(el => {
+      return `
+        <div class="swiper-slide image-preview__image-item">
+          <a href="${el.normal}">
+            <img 
+              width="100%"
+              height="100%"
+              data-src="${el.normal}" 
+              alt="product-image"
+              class="swiper-lazy">
+            <div class="loader">
+              <div class="loader__spinner"></div>
+            </div>
+          </a>
+        </div>
+      `;
+    });
+
+    this.swiper.appendSlide(slides);
+    this.swiper.lazy.load();
+  }
+
+  static attachChangeHandler(swiperMain, swiperThumbnailsCustom) {
+    swiperMain.on(
+      'slideChange', 
+      () => swiperThumbnailsCustom.thumbToggleActiveItem(swiperMain.activeIndex)
+    );
+  }
+
+  renderThumbanails(images) {
+    if (!images.length) return;
+
+    const thumbs = images.map(el => {
+      return `
+        <div class="image-thumbnails__item swiper-slide" tabindex="0">
+          <img
+            height="100%"
+            width="100%"
+            data-src-max="${el.max}"
+            src="${el.normal}" 
+            alt="product-thumbnail">
+        </div>
+      `;
+    });
     
-    if (options?.lazy) {
-      this.swiper.on('lazyImageReady', () => this.swiper.update());
-    }
+    this.swiper.appendSlide(thumbs);
+    this.swiper.lazy.load();
   }
 
-  listenForSlideChange() {
-    if (!this.thumbNailElements || !this.thumbNailElements.length) {
-      return;
-    }
+  thumbToggleActiveItem(activeIndex = this.swiper.active) {
+    this.swiper.slides.forEach((el, i) => {
 
-    this.swiper.on('slideChange', this.thumbToggleActiveItem.bind(this));
-  }
-
-  thumbToggleActiveItem() {
-    this.thumbNailElements.forEach((el, i) => {
-      if (this.swiper.activeIndex === i) {
+      if (activeIndex === i) {
         el.classList.add('image-thumbnails__item--active');
       } else {
         el.classList.remove('image-thumbnails__item--active');
       }
+
     });
   }
 
-  onClickThumbnail(index) {
-    this.swiper.slideTo(index, 0);
+  onClickThumbnail(swiper, index) {
+    swiper.slideTo(index, 300);
+
+    this.thumbToggleActiveItem(index);
   }
 
-  attachThumbnailClickHandler() {
-    if (this.thumbNailElements.length) {
-      this.thumbNailElements.forEach((el, i) => {
-        el.addEventListener('click', this.onClickThumbnail.bind(this, i));
-      });
+  attachThumbnailClickHandler(swiperToControl) {
+    if (!this.swiper.slides.length) return;
 
-      this.thumbToggleActiveItem();
-    }
+    this.swiper.slides.forEach((el, i) => {
+      el.addEventListener('click', this.onClickThumbnail.bind(this, swiperToControl, i));
+    });
+
+    this.thumbToggleActiveItem(swiperToControl.activeIndex);
   }
 }
 
