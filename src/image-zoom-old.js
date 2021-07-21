@@ -1,3 +1,12 @@
+// **************************
+// **************************
+// **************************
+// **************************
+// **************************
+// **************************
+// **************************
+// THIS FILE IS ONLY TESTING PURPOSES AND CANNOT BE USED IN PRODUCTION
+
 export default class ImageZoom {
   // !------- NOTE -----
   // Ratio more than 2 can get BUGGY :))!

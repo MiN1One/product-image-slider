@@ -1,5 +1,5 @@
 export default class ImageZoom {
-  ratio = 3;
+  ratio = 2;
   image;
   zoomContainer;
 
@@ -45,11 +45,8 @@ export default class ImageZoom {
     event = event || window.event;
     const bounds = this.image.getBoundingClientRect();
 
-    let mouseX = event.pageX - bounds.left;
-    let mouseY = event.pageY - bounds.top;
-
-    mouseX = mouseX - window.pageXOffset;
-    mouseY = mouseY - window.pageYOffset;
+    const mouseX = (event.pageX - bounds.left) - window.pageXOffset;
+    const mouseY = (event.pageY - bounds.top) - window.pageYOffset;
 
     return { mouseX, mouseY };
   }
@@ -60,12 +57,7 @@ export default class ImageZoom {
     this.zoomContainer.classList.add('image-preview__zoom--active');
     this.image.classList.add('image-preview__image--hide');
 
-    const { mouseX, mouseY } = this.getCursorPosition(event);
-
-    console.log(parseInt(mouseX), parseInt(mouseY));
-
-    let x = mouseX;
-    let y = mouseY;
+    let { mouseX: x, mouseY: y } = this.getCursorPosition(event);
 
     if (x > this.container.offsetWidth) x = this.container.offsetWidth;
     if (y > this.container.offsetHeight) y = this.container.offsetHeight;
