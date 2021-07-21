@@ -1,8 +1,5 @@
 export default class ImageZoom {
-  // !------- NOTE -----
-  // Ratio more than 2 can get BUGGY :))!
-
-  ratio = 2;
+  ratio = 3;
   image;
   zoomContainer;
 
@@ -76,8 +73,12 @@ export default class ImageZoom {
     if (x < 0) x = 0;
     if (y < 0) y = 0;
 
-    this.zoomContainer.style.left = `-${x}px`;
-    this.zoomContainer.style.top = `-${y}px`;
+    this.zoomContainer.style.left = `-${x * (this.ratio - 1)}px`;
+    this.zoomContainer.style.top = `-${y * (this.ratio - 1)}px`;
+    
+    // Grab effect
+    // this.zoomContainer.style.left = `-${this.zoomContainer.offsetWidth / this.ratio - x}px`;
+    // this.zoomContainer.style.top = `-${this.zoomContainer.offsetHeight / this.ratio - y}px`;
   }
   
   onMouseLeave() {
