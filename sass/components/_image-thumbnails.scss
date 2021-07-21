@@ -9,6 +9,7 @@
   
   &__item {
     transition: opacity .5s ease-in-out;
+    opacity: .5;
 
     img {
       max-height: 100%;
@@ -18,6 +19,6 @@
 
     &:hover,
     &:focus,
-    &--active { opacity: .5; }
+    &--active { opacity: 1; }
   }
 }

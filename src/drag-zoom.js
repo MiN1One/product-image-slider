@@ -31,7 +31,7 @@ class DragFullScreenZoom {
     this.zoomContainer.addEventListener('mouseup', this.onMouseUp.bind(this));
 
     this.zoomContainer.addEventListener('mousemove', this.onMouseMove.bind(this));
-    this.zoomContainer.addEventListener('touchmove', this.onMouseMove.bind(this));
+    // this.zoomContainer.addEventListener('touchmove', this.onMouseMove.bind(this));
 
     this.zoomContainer.addEventListener('mousewheel', this.onMouseScroll.bind(this));
 
@@ -99,6 +99,7 @@ class DragFullScreenZoom {
     if (this.scale > this.maxScale) {
       this.scale = this.maxScale;
     }
+    console.log(`limiting ${this.scale}`)
   }
 
   preventZoomOut() {
@@ -134,20 +135,28 @@ class DragFullScreenZoom {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
-      delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
+      delta = e.wheelDelta ? e.wheelDelta : -e.wheelDeltaY;
     }
 
     zoomingIn = delta > 0;
+
     const zoomSize = Math.abs(delta) / 100;
 
     xs = (mouseX - this.xCoor) / this.scale;
     ys = (mouseY - this.yCoor) / this.scale;
 
-    if (this.scale >= this.maxScale && zoomingIn) {
+    if (
+      (this.scale >= this.maxScale && zoomingIn) ||
+      (this.scale < 1 && !zoomingIn)
+    ) {
       return;
     }
 
-    zoomingIn ? this.scale *= zoomSize : this.scale /= zoomSize;
+    if (Math.abs(e.deltaY) < 100 || zoomSize < 1) {
+      zoomingIn ? this.scale += zoomingIn : this.scale -= zoomSize;
+    } else {
+      zoomingIn ? this.scale *= zoomSize : this.scale /= zoomSize;
+    }
 
     this.limitZoom();
     
