@@ -46,9 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
   params['onFullScreenChange'] = zoom.resetZoom.bind(zoom);
   new FullScreen(params);
   
-  // IMAGE ZOOM
-  var previewZoom = $('.image-preview__image-item.swiper-slide').easyZoom();
-
   // PRODUCT VARIANTS
   new VariantSelection({
     colorsContainer: document.querySelector('.color-filter-container .container'),
@@ -57,10 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sizeVariants: window.sizes,
     colorVariants: window.colors,
     boundSwiperMain: mainSlider,
-    boundSwiperThumbnails: thumbnailSlider,
-    onChangeColor: (imageSrc) => {
-      var zoomApi = previewZoom.data('easyZoom')
-      zoomApi.swap(imageSrc);
-    }
+    boundSwiperThumbnails: thumbnailSlider
   });
 });

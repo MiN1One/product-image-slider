@@ -1,14 +1,12 @@
 export default class VariantSelection {
   constructor({
     variants,
-    container,
     sizeVariants,
     boundSwiperMain,
     boundSwiperThumbnails,
     colorVariants,
     colorsContainer,
     sizesContainer,
-    onChangeColor
   }) {
     this.colorsContainer = colorsContainer;
     this.sizesContainer = sizesContainer;
@@ -16,10 +14,8 @@ export default class VariantSelection {
     this.variants = variants;
     this.sizeVariants = sizeVariants;
     this.colorVariants = colorVariants;
-    this.container = container;
     this.boundSwiperThumbnails = boundSwiperThumbnails;
     this.boundSwiperMain = boundSwiperMain;
-    this.onChangeColor = onChangeColor;
 
     this.renderColorOptions();
 
@@ -83,17 +79,17 @@ export default class VariantSelection {
     const lastMainSlide = swiperMain.slides[swiperMain.slides.length - 1];
 
     const mainImage = lastMainSlide.querySelector('img');
-    const mainImageWrapper = lastMainSlide.querySelector('a');
 
-    mainImageWrapper.href = normal;
-
-    // this.onChangeColor(normal);
+    const zoomObj = this.boundSwiperMain.slidesImageZoom[swiperMain.slides.length - 1];
 
     if (mainImage.src === '') {
       mainImage.dataset.src = normal;
     } else {
       mainImage.setAttribute('src', normal);
     }
+
+    zoomObj.setImage(normal);
+    zoomObj.setSize();
 
     swiperMain.lazy.load();
 

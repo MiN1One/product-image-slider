@@ -6,9 +6,8 @@ export default class ImageZoom {
   image;
   zoomContainer;
 
-  constructor(container, ratio) {
+  constructor(container) {
     this.container = container;
-    this.ratio = ratio || this.ratio;
 
     this.init();
   }
@@ -19,17 +18,21 @@ export default class ImageZoom {
 
     this.container.addEventListener('mouseleave', this.onMouseLeave.bind(this));
     this.container.addEventListener('touchend', this.onMouseLeave.bind(this));
+
+    window.addEventListener('resize', this.setSize.bind(this));
   }
 
-  setImage(imgSrc = this.image.src || this.image.dataset.src) {
+  setImage(imgSrc) {
     this.zoomContainer.style.backgroundImage = `url(${imgSrc})`;
   }
 
-  setSize() {
-    this.zoomContainer.style.backgroundSize = `contain`;
-    this.zoomContainer.style.backgroundPosition = `center center`;
-    this.zoomContainer.style.width = `${100 * this.ratio}%`;
-    this.zoomContainer.style.height = `${100 * this.ratio}%`;
+  setSize(img) {
+    const { cx, cy } = this.getImageScaleByRatio();
+    console.log('resized');
+
+    const image = img || this.image;
+
+    this.zoomContainer.style.backgroundSize = `${image.width * cx}px ${image.height * cy}px`;
   }
 
   init() {
@@ -40,8 +43,15 @@ export default class ImageZoom {
     this.image = this.container.querySelector('img');
     this.zoomContainer = this.container.querySelector('.image-preview__zoom');
 
-    this.setImage();
+    this.setImage(this.image.src || this.image.dataset.src);
     this.setSize();
+  }
+
+  getImageScaleByRatio() {
+    const cx = this.zoomContainer.offsetWidth / (this.zoomContainer.offsetWidth / this.ratio);
+    const cy = this.zoomContainer.offsetHeight / (this.zoomContainer.offsetHeight / this.ratio);
+
+    return { cx, cy };
   }
   
   getCursorPosition(event) {
@@ -61,11 +71,8 @@ export default class ImageZoom {
     event.preventDefault();
 
     this.zoomContainer.classList.add('image-preview__zoom--active');
-    this.image.classList.add('image-preview__image--hide');
 
     const { mouseX, mouseY } = this.getCursorPosition(event);
-
-    console.log(parseInt(mouseX), parseInt(mouseY));
 
     let x = mouseX;
     let y = mouseY;
@@ -76,14 +83,22 @@ export default class ImageZoom {
     if (x < 0) x = 0;
     if (y < 0) y = 0;
 
-    this.zoomContainer.style.left = `-${x}px`;
-    this.zoomContainer.style.top = `-${y}px`;
+    const { cx, cy } = this.getImageScaleByRatio();
+
+    let positionX = x * cx;
+    let positionY = y * cy;
+
+    const widthScaled = this.container.offsetWidth * this.ratio;
+    const heightScaled = this.container.offsetHeight * this.ratio;
+
+    if (positionX > widthScaled) positionX = widthScaled;
+    if (positionY > heightScaled) positionY = heightScaled;
+
+    this.zoomContainer.style.backgroundPosition = `-${positionX / this.ratio}px -${positionY / this.ratio}px`;
   }
   
   onMouseLeave() {
-    this.zoomContainer.style.removeProperty('top');
-    this.zoomContainer.style.removeProperty('left');
-    this.image.classList.remove('image-preview__image--hide');
     this.zoomContainer.classList.remove('image-preview__zoom--active');
+    this.zoomContainer.style.removeProperty('background-position');
   }
 }

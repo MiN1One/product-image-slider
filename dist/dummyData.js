@@ -763,7 +763,7 @@ const variants = [
 
 const sizes = ["20", "40"];
 
-const dummyData_mainImages = [
+const images = [
   {
     normal: "resources/images/kas_plushrobe_taupe_closed_highres.jpg",
     max: "resources/images/kas_plushrobe_taupe_closed_highres.jpg",
@@ -781,3 +781,8 @@ const dummyData_mainImages = [
     max: "resources/images/kas_plushrobe_gray_open_highres.jpg",
   },
 ];
+
+window.colors = colors;
+window.variants = variants;
+window.sizes = sizes;
+window.images = images;

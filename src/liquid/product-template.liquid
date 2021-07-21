@@ -4,22 +4,20 @@
 
   const variantImages = [];
   {% for variant in product.variants %}
-  {% if variant.image.src != blank %} 
-  variantImages.push({
-    normal: {{ variant.image.src | img_url: '2000x2000' | json }},
-    small: {{ variant.image.src | img_url: 'x500' | json }},
-    max: {{ variant.image.src | img_url: 'master' | json }}
-  });
-  {% endif %}
+    variantImages.push({
+      normal: {{ variant.image.src | img_url: '2000x2000' | json }},
+      small: {{ variant.image.src | img_url: 'x500' | json }},
+      max: {{ variant.image.src | img_url: 'master' | json }}
+    });
   {% endfor %}
 
 
   let images = [];
   {% for image in product.images %}
-  images.push({
-    normal: {{ image | img_url: '2000x2000' | json }},
-    max: {{ image | img_url: 'master' | json }}
-  });
+    images.push({
+      normal: {{ image | img_url: '2000x2000' | json }},
+      max: {{ image | img_url: 'master' | json }}
+    });
   {% endfor %}
 
   images = images.filter(el => {

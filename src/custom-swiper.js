@@ -1,6 +1,9 @@
 // import Swiper from 'swiper';
+import ImageZoom from './image-zoom';
 
 class CustomSwiper {
+  slidesImageZoom = [];
+
   constructor (container, options) {
     this.container = container;
 
@@ -31,23 +34,29 @@ class CustomSwiper {
     const slides = images.map(el => {
       return `
         <div class="swiper-slide image-preview__image-item">
-          <a href="${el.normal}">
-            <img 
-              width="100%"
-              height="100%"
-              data-src="${el.normal}" 
-              alt="product-image"
-              class="swiper-lazy">
-            <div class="loader">
-              <div class="loader__spinner"></div>
-            </div>
-          </a>
+          <div class="image-preview__zoom"></div>
+          <img
+            width="100%"
+            height="100%"
+            data-src="${el.normal}" 
+            alt="product-image"
+            class="swiper-lazy image-preview__image">
+          <div class="loader">
+            <div class="loader__spinner"></div>
+          </div>
         </div>
       `;
     });
 
     this.swiper.appendSlide(slides);
     this.swiper.lazy.load();
+    this.enableZoom();
+  }
+
+  enableZoom() {
+    this.swiper.slides.forEach(el => {
+      this.slidesImageZoom.push(new ImageZoom(el));
+    });
   }
 
   static attachChangeHandler(swiperMain, swiperThumbnailsCustom) {

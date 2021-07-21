@@ -18,6 +18,25 @@
     margin-bottom: 15px;
   }
 
+  &__zoom {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 20;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .75s ease;
+    cursor: crosshair;
+
+    &--active {
+      opacity: 1; 
+      visibility: visible;
+    }
+  }
+
   &__images {
     width: 100%;
     height: 30vw;
@@ -33,27 +52,41 @@
     max-width: 100%;
     min-height: 100%;
     cursor: crosshair;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  &__image {
+    transition: opacity .5s ease;
+    max-width: initial !important;
+    vertical-align: bottom;
+    object-fit: contain;
+    visibility: hidden;
+    opacity: 0;
 
-    a {
-      position: relative;
-      height: 100%;
-      width: 100%;
-      display: block;
-    }
-
-    a img { visibility: hidden; }
-
-    img {
-      max-width: initial !important;
-      vertical-align: bottom;
-      object-fit: contain;
+    &--hide {
+      visibility: hidden !important;
+      opacity: 0 !important;
     }
   }
 }
 
-.easyzoom-flyout {
-  width: 100%;
-  height: 100%;
-  animation: fadeIn .5s ease;
-  animation-fill-mode: backwards;
+.swiper-lazy-loading {
+  visibility: hidden;
+  opacity: 0;
+
+  & + .loader {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.swiper-lazy-loaded {
+  visibility: visible;
+  opacity: 1;
+  
+  & + .loader {
+    opacity: 0;
+    visibility: hidden;
+  }
 }

@@ -25,21 +25,3 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-
-.swiper-lazy-loading {
-  visibility: hidden;
-
-  & + .loader {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
-.swiper-lazy-loaded {
-  visibility: visible !important;
-  
-  & + .loader {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
