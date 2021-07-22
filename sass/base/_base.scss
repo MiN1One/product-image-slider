@@ -6,6 +6,8 @@
   box-sizing: border-box;
 }
 
+body { font-family: sans-serif; }
+
 button {
   border: none;
   cursor: pointer;
@@ -13,3 +15,5 @@ button {
 }
 
 [tabindex="0"] { cursor: pointer; }
+
+.color { font-size: 17px; }

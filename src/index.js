@@ -2,6 +2,7 @@ import CustomSwiper from './custom-swiper';
 import DragFullScreenZoom from './drag-zoom';
 import FullScreen from './fullscreen';
 import VariantSelection from './variant-selection';
+import styleTables from './table';
 
 document.addEventListener('DOMContentLoaded', () => {
   // MAIN CAROUSEL
@@ -56,4 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     boundSwiperMain: mainSlider,
     boundSwiperThumbnails: thumbnailSlider
   });
+
+  styleTables();
 });
