@@ -200,18 +200,15 @@ button {
 }
 .table-details__data-col {
   width: 70%;
-  max-width: 70%;
 }
-@media screen and (max-width: 64em) {
-  .table-details__data-col {
-    width: 55%;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .table-details__data-col::-webkit-scrollbar {
-    display: none;
-  }
+.table-details__main-col--scroll ~ .table-details__data-col {
+  width: 55%;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.table-details__main-col--scroll ~ .table-details__data-col::-webkit-scrollbar {
+  display: none;
 }
 .table-details__row {
   display: flex;
@@ -418,7 +415,7 @@ button {
   min-height: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.75s ease;
+  transition: opacity 1.5s ease;
   cursor: crosshair;
 }
 .image-preview__zoom--active {
@@ -454,7 +451,7 @@ button {
   overflow: hidden;
 }
 .image-preview__image {
-  transition: opacity 0.5s ease;
+  transition: opacity 1.5s ease;
   max-width: initial !important;
   vertical-align: bottom;
   object-fit: contain;

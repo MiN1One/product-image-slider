@@ -58,5 +58,5 @@ document.addEventListener('DOMContentLoaded', () => {
     boundSwiperThumbnails: thumbnailSlider
   });
 
-  styleTables();
+  // styleTables();
 });

@@ -1,3 +1,5 @@
+import imagePreloader from "./imagePreloader";
+
 export default class VariantSelection {
   constructor({
     variants,
@@ -82,11 +84,19 @@ export default class VariantSelection {
 
     const zoomObj = this.boundSwiperMain.slidesImageZoom[swiperMain.slides.length - 1];
 
-    if (mainImage.src === '') {
-      mainImage.dataset.src = normal;
-    } else {
-      mainImage.setAttribute('src', normal);
-    }
+    imagePreloader({
+      image: normal,
+      startCb: () => {
+        mainImage.classList.remove('swiper-lazy-loaded');
+        mainImage.classList.add('swiper-lazy-loading');
+      },
+      endCb: () => {
+        mainImage.classList.add('swiper-lazy-loaded');
+        mainImage.classList.remove('swiper-lazy-loading');
+        mainImage.setAttribute('src', normal);
+      }
+    });
+
 
     zoomObj.setImage(normal);
     zoomObj.setSize();

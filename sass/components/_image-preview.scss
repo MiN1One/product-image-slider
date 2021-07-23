@@ -28,7 +28,7 @@
     min-height: 100%;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .75s ease;
+    transition: opacity 1.5s ease;
     cursor: crosshair;
 
     &--active {
@@ -57,7 +57,7 @@
   }
   
   &__image {
-    transition: opacity .5s ease;
+    transition: opacity 1.5s ease;
     max-width: initial !important;
     vertical-align: bottom;
     object-fit: contain;

@@ -74,18 +74,15 @@ $font-color: #4d4d4d;
     }
   }
 
-  &__data-col {
-    width: 70%;
-    max-width: 70%;
-    
-    @include respond('tablet') {
-      width: 55%;
-      overflow-x: auto;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-
-      &::-webkit-scrollbar { display: none; }
-    }
+  &__data-col { width: 70%; }
+  
+  &__main-col--scroll ~ &__data-col {
+    width: 55%;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  
+    &::-webkit-scrollbar { display: none; }
   }
 
   &__row {

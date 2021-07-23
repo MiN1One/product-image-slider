@@ -4,7 +4,7 @@ const styleTables = () => {
   const mainColumn = document.querySelector('.table-details__main-col');
   const dataColumn = document.querySelector('.table-details__data-col');
 
-  const columnSize = dataColumn.children[0].children.length;
+  const columnsLength = dataColumn.children[0].children.length;
 
   Array.from(mainColumn.children).forEach((el, i) => {
     const adjacentCol = dataColumn.children[i];
@@ -25,11 +25,11 @@ const styleTables = () => {
     Array.from(dataColumn.children).forEach(el => {
       Array.from(el.children).forEach(column => {
 
-        if (mediaTablet.matches && columnSize > 3) {
+        if (mediaTablet.matches && columnsLength > 3) {
           column.style.width = `200px`;
           mainColumn.classList.add('table-details__main-col--scroll');
         } else {
-          column.style.width = `${100 / columnSize}%`;
+          column.style.width = `${100 / columnsLength}%`;
           mainColumn.classList.remove('table-details__main-col--scroll');
         }
         

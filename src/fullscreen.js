@@ -1,4 +1,5 @@
 import CustomSwiper from './custom-swiper';
+import imagePreloader from './imagePreloader';
 
 class FullScreen {
   isFullScreen = false;
@@ -87,21 +88,17 @@ class FullScreen {
     if (!image) return;
     
     const loader = document.querySelector('.fullscreen .loader');
-
-    loader.style.display = 'flex';
+    
     image.src = src;
 
-    if (image.complete) {
-      imageLoadingFinished();
-    } else {
-      image.onload = () => imageLoadingFinished();
-    }
-    
-    function imageLoadingFinished() {
-      loader.style.display = 'none';
-      image.classList.remove('fullscreen__img--loading');
-      image.onload = null;
-    }
+    imagePreloader({
+      image: src,
+      startCb: () => loader.style.display = 'flex',
+      endCb: () => {
+        loader.style.display = 'none';
+        image.classList.remove('fullscreen__img--loading');
+      }
+    });
   }
 
   renderThumbnails() {
