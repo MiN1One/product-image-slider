@@ -16,6 +16,7 @@ export default class VariantSelection {
     this.variants = variants;
     this.sizeVariants = sizeVariants;
     this.colorVariants = colorVariants;
+
     this.boundSwiperThumbnails = boundSwiperThumbnails;
     this.boundSwiperMain = boundSwiperMain;
 
@@ -41,7 +42,9 @@ export default class VariantSelection {
   }
 
   renderColorOptions() {
-    if (!this.colorVariants) return;
+    if (!this.colorVariants || !this.colorsContainer) return;
+
+    const container = this.colorsContainer.querySelector('.container');
 
     for (const [key, val] of Object.entries(this.colorVariants)) {
       const colorElement = `
@@ -58,7 +61,7 @@ export default class VariantSelection {
         </div>
       `;
 
-      this.colorsContainer.insertAdjacentHTML('afterbegin', colorElement);
+      container.insertAdjacentHTML('afterbegin', colorElement);
     }
 
     Array.from(this.colorsContainer.querySelectorAll('[data-color]'))
@@ -68,6 +71,14 @@ export default class VariantSelection {
         
         el.addEventListener('click', () => this.onSelectByColor(color, slug))
       });
+  }
+
+  setActiveColorTitle(colorSlug) {
+    if (!colorSlug) return;
+
+    const activeColor = this.colorVariants[colorSlug].title?.toUpperCase();
+    
+    this.colorsContainer.querySelector('.active-color-title').innerHTML = activeColor;
   }
   
   onSelectByColor(colorObj, slug) {
@@ -97,7 +108,6 @@ export default class VariantSelection {
       }
     });
 
-
     zoomObj.setImage(normal);
     zoomObj.setSize();
 
@@ -107,7 +117,9 @@ export default class VariantSelection {
     thumbnailImage.setAttribute('src', small);
     thumbnailImage.dataset.srcMax = max;
 
+    this.setActiveColorTitle(slug);
     this.animateUI(slug);
+
     swiperMain.update();
   }
 }

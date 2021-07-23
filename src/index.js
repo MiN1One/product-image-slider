@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // PRODUCT VARIANTS
   new VariantSelection({
-    colorsContainer: document.querySelector('.color-filter-container .container'),
-    sizesContainer: document.querySelector('.size-tabs-container .sizes'),
+    colorsContainer: document.querySelector('.color-filter-container'),
+    sizesContainer: document.querySelector('.size-tabs-container'),
     variants: window.variants,
     sizeVariants: window.sizes,
     colorVariants: window.colors,

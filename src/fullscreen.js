@@ -85,18 +85,15 @@ class FullScreen {
   }
 
   setLoading(image, src) {
-    if (!image) return;
-    
     const loader = document.querySelector('.fullscreen .loader');
     
-    image.src = src;
-
     imagePreloader({
       image: src,
       startCb: () => loader.style.display = 'flex',
       endCb: () => {
         loader.style.display = 'none';
         image.classList.remove('fullscreen__img--loading');
+        image.src = src;
       }
     });
   }

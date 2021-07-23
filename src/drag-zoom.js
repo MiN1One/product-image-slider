@@ -99,7 +99,6 @@ class DragFullScreenZoom {
     if (this.scale > this.maxScale) {
       this.scale = this.maxScale;
     }
-    console.log(`limiting ${this.scale}`)
   }
 
   preventZoomOut() {
