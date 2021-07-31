@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     variantsQuantity,
     optionsList
   });
-  console.log(productData);
 
   // MAIN CAROUSEL
   const mainSlider = new CustomSwiper('.image-preview__images', {

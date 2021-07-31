@@ -1,8 +1,6 @@
 export class DetailsTable {
   columnsLength = 0;
   rowsLength = 0;
-  media;
-  data;
   activeSizeOption;
   
   tableData = {};
