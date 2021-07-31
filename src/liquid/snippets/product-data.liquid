@@ -1,9 +1,9 @@
 <script>
-  const variants = {{ product.variants | json }};
-  const images = [];
-  const variantImages = [];
-  const quantity = [];
-  const optionsList = {{ product.options | json }};
+  var variants = {{ product.variants | json }};
+  var images = [];
+  var variantImages = [];
+  var quantity = [];
+  var optionsList = {{ product.options | json }};
 
   {% for variant in product.variants %}
     variantImages.push({
