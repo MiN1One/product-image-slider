@@ -9,29 +9,65 @@ export default class VariantSelection {
     colorVariants,
     colorsContainer,
     sizesContainer,
+    onSelectSize
   }) {
+    // DOM ELEMENTS
     this.colorsContainer = colorsContainer;
     this.sizesContainer = sizesContainer;
 
+    // DATA
     this.variants = variants;
     this.sizeVariants = sizeVariants;
     this.colorVariants = colorVariants;
 
+    // ATTACHED SWIPERS
     this.boundSwiperThumbnails = boundSwiperThumbnails;
     this.boundSwiperMain = boundSwiperMain;
 
-    this.renderColorOptions();
+    // CALLBACKS 
+    this.onSelectSize = onSelectSize;
 
-    if (this.sizeVariants && this.sizeVariants.length) {
-      this.renderSizeOptions();
+    // INITIALIZERS
+    this.renderColorOptions();
+    this.renderSizeOptions();
+    this.hideOptions();
+  }
+
+  hideOptions() {
+    if (Object.keys(this.sizeVariants)?.length <= 1) {
+      this.sizesContainer.style.display = 'none';
+    }
+
+    if (Object.keys(this.colorVariants)?.length <= 1) {
+      this.colorsContainer.style.display = 'none';
     }
   }
 
   renderSizeOptions() {
-    
+    if (!this.sizesContainer || !this.sizeVariants) {
+      return;
+    }
+
+    const container = this.sizesContainer.querySelector('.sizes');
+
+    for (const [key, val] of Object.entries(this.sizeVariants)) {
+      const template = `
+        <li data-size=${key}>
+          ${val.title}
+        </li>
+      `;
+
+      container.insertAdjacentHTML('beforeend', template);
+    }
+
+    Array.from(container.children).forEach(el => {
+      const slug = el.dataset.size;
+
+      el.addEventListener('click', this.onSelectBySize.bind(this, slug));
+    });
   }
 
-  animateUI(colorSlug) {
+  animateUIForColor(colorSlug) {
     Array.from(this.colorsContainer.querySelectorAll('[data-color]')).forEach(el => {
       if (colorSlug === el.dataset.color) {
         el.classList.add('active');
@@ -48,7 +84,7 @@ export default class VariantSelection {
 
     for (const [key, val] of Object.entries(this.colorVariants)) {
       const colorElement = `
-        <div class="color" data-color=${key}>
+        <div class="color" data-color="${key}">
           <div>
             <div class="color-circle ${key}"></div>
           </div>
@@ -67,10 +103,17 @@ export default class VariantSelection {
     Array.from(this.colorsContainer.querySelectorAll('[data-color]'))
       .forEach((el) => {
         const slug = el.dataset.color;
-        const color = this.colorVariants[slug];
         
-        el.addEventListener('click', () => this.onSelectByColor(color, slug))
+        el.addEventListener('click', this.onSelectByColor.bind(this, slug))
       });
+  }
+
+  onSelectBySize(sizeSlug) {
+    if (sizeSlug === this.activeSize) return;
+
+    this.activeSize = sizeSlug;
+
+    this.onSelectSize && this.onSelectSize(sizeSlug);
   }
 
   setActiveColorTitle(colorSlug) {
@@ -81,10 +124,10 @@ export default class VariantSelection {
     this.colorsContainer.querySelector('.active-color-title').innerHTML = activeColor;
   }
   
-  onSelectByColor(colorObj, slug) {
+  onSelectByColor(slug) {
     const { swiper: swiperMain } = this.boundSwiperMain;
     const { swiper: swiperThumbnails } = this.boundSwiperThumbnails;
-    const { image: { normal, small, max } } = colorObj;
+    const { image: { normal, small, max } } = this.colorVariants[slug];
 
     swiperMain.slideTo(swiperMain.slides.length, 700);
     this.boundSwiperThumbnails.thumbToggleActiveItem(swiperMain.activeIndex);
@@ -118,7 +161,7 @@ export default class VariantSelection {
     thumbnailImage.dataset.srcMax = max;
 
     this.setActiveColorTitle(slug);
-    this.animateUI(slug);
+    this.animateUIForColor(slug);
 
     swiperMain.update();
   }

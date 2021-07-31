@@ -23,6 +23,6 @@
   }
   @if ($breakpoint == 'xs') {
     // 300
-    @media screen and (max-width: 18.75em) { @content };
+    @media screen and (max-width: 20em) { @content };
   }
 }

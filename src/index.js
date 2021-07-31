@@ -2,14 +2,25 @@ import CustomSwiper from './custom-swiper';
 import DragFullScreenZoom from './drag-zoom';
 import FullScreen from './fullscreen';
 import VariantSelection from './variant-selection';
-import styleTables from './table';
+import { DetailsTable } from './table';
+import ProductData from './product-data';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // MAIN CAROUSEL
-  const swiperOptions = { slidesPerView: 1, lazy: true };
+  const productData = new ProductData({
+    productImages,
+    variants,
+    variantImages,
+    variantsQuantity,
+    optionsList
+  });
+  console.log(productData);
 
-  const mainSlider = new CustomSwiper('.image-preview__images', swiperOptions);
-  mainSlider.renderSlides(window.images);
+  // MAIN CAROUSEL
+  const mainSlider = new CustomSwiper('.image-preview__images', {
+    slidesPerView: 1, 
+    lazy: true
+  });
+  mainSlider.renderSlides(productData.productImages);
 
   // THUMBNAILS SWIPER
   const thumbnailSlider = new CustomSwiper('.image-thumbnails', {
@@ -21,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       420: { slidesPerView: 4 }
     }
   });
-  thumbnailSlider.renderThumbanails(window.images);
+  thumbnailSlider.renderThumbanails(productData.productImages);
   thumbnailSlider.attachThumbnailClickHandler(mainSlider.swiper);
 
   // SWIPER ACTIVE INDEX FIX
@@ -46,17 +57,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // FULL SCREEN
   params['onFullScreenChange'] = zoom.resetZoom.bind(zoom);
   new FullScreen(params);
+
+  // TABLE
+  const table = new DetailsTable({
+    variants: window.variants,
+    dataColumn: document.querySelector('.table-details__data-col'),
+    mainColumn: document.querySelector('.table-details__main-col'),
+    tableElement: document.querySelector('.table-details'),
+    sizes: productData.optionsData.size,
+    colors: productData.optionsData.color,
+    materials: productData.optionsData.material
+  });
   
   // PRODUCT VARIANTS
   new VariantSelection({
     colorsContainer: document.querySelector('.color-filter-container'),
     sizesContainer: document.querySelector('.size-tabs-container'),
-    variants: window.variants,
-    sizeVariants: window.sizes,
-    colorVariants: window.colors,
+    variants: productData.variants,
+    sizeVariants: productData.optionsData.size.options,
+    colorVariants: productData.optionsData.color.options,
     boundSwiperMain: mainSlider,
-    boundSwiperThumbnails: thumbnailSlider
+    boundSwiperThumbnails: thumbnailSlider,
+    onSelectSize: (sizeSlug) => table.init(sizeSlug)
   });
-
-  // styleTables();
 });
