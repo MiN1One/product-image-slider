@@ -1,0 +1,34 @@
+<script>
+  const variants = {{ product.variants | json }};
+  const images = [];
+  const variantImages = [];
+  const quantity = [];
+  const optionsList = {{ product.options | json }};
+
+  {% for variant in product.variants %}
+    variantImages.push({
+      normal: {{ variant.image.src | img_url: '2000x2000' | json }},
+      small: {{ variant.image.src | img_url: 'x100' | json }},
+      max: {{ variant.image.src | img_url: 'master' | json }}
+    });
+    
+    quantity.push({
+      id: {{ variant.id | json }},
+      inventory: {{ variant.inventory_quantity | json }}
+    });
+  {% endfor %}
+
+  {% for image in product.images %}
+    images.push({
+      normal: {{ image | img_url: '2000x2000' | json }},
+      small: {{ image | img_url: 'x100' | json }},
+      max: {{ image | img_url: 'master' | json }}
+    });
+  {% endfor %}
+
+  window.variants = variants;
+  window.productImages = images;
+  window.variantImages = variantImages;
+  window.variantsQuantity = quantity;
+  window.optionsList = optionsList;
+</script>
