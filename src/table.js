@@ -245,8 +245,6 @@ export class DetailsTable {
   onDragStart(e) {
     if (this.mediaTablet.matches && this.columnsLength < 4) return;
 
-    e.preventDefault();
-
     this.dataColumn.classList.add('table-details__data-col--drag');
 
     this.drag.holding = true;
