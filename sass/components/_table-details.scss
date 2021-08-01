@@ -87,7 +87,9 @@ $green: #2ecc71;
       scrollbar-width: none;
     
       &::-webkit-scrollbar { display: none; }
-    }
+    } 
+
+    &--drag { cursor: grabbing !important; }
   }
 
   &__row {
@@ -248,6 +250,8 @@ $green: #2ecc71;
     z-index: 1;
     box-shadow: 8.5px 0 8.5px rgba(0,0,0, .085);
   }
+
+  &--reflective &__data-col { cursor: grab; }
 
   &__main-col &__product-title {
     @include respond('xs') {

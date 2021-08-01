@@ -224,6 +224,9 @@ button {
     display: none;
   }
 }
+.table-details__data-col--drag {
+  cursor: grabbing !important;
+}
 .table-details__row {
   display: flex;
   align-items: center;
@@ -366,6 +369,9 @@ button {
   position: relative;
   z-index: 1;
   box-shadow: 8.5px 0 8.5px rgba(0, 0, 0, 0.085);
+}
+.table-details--reflective .table-details__data-col {
+  cursor: grab;
 }
 @media screen and (max-width: 20em) {
   .table-details__main-col .table-details__product-title {

@@ -67,9 +67,9 @@ export default class VariantSelection {
     });
   }
 
-  animateUIForColor(colorSlug) {
-    Array.from(this.colorsContainer.querySelectorAll('[data-color]')).forEach(el => {
-      if (colorSlug === el.dataset.color) {
+  animateUI(slug, type) {
+    Array.from(this[`${type}sContainer`].querySelectorAll(`[data-${type}]`)).forEach(el => {
+      if (slug === el.dataset[type]) {
         el.classList.add('active');
       } else {
         el.classList.remove('active');
@@ -112,7 +112,7 @@ export default class VariantSelection {
     if (sizeSlug === this.activeSize) return;
 
     this.activeSize = sizeSlug;
-
+    this.animateUI(sizeSlug, 'size');
     this.onSelectSize && this.onSelectSize(sizeSlug);
   }
 
@@ -161,7 +161,7 @@ export default class VariantSelection {
     thumbnailImage.dataset.srcMax = max;
 
     this.setActiveColorTitle(slug);
-    this.animateUIForColor(slug);
+    this.animateUI(slug, 'color');
 
     swiperMain.update();
   }

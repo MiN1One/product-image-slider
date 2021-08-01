@@ -2,6 +2,12 @@ export class DetailsTable {
   columnsLength = 0;
   rowsLength = 0;
   activeSizeOption;
+
+  drag = {
+    holding: false,
+    scrollLeft: 0,
+    mouseX: 0
+  };
   
   tableData = {};
 
@@ -55,6 +61,10 @@ export class DetailsTable {
     // this.hideHead();
 
     window.addEventListener('resize', this.alignRowsHeight.bind(this));
+    this.dataColumn.addEventListener('mousedown', this.onDragStart.bind(this));
+    this.dataColumn.addEventListener('mousemove', this.onDrageTable.bind(this));
+    this.dataColumn.addEventListener('mouseup', this.onDragEnd.bind(this));
+    this.dataColumn.addEventListener('mouseleave', this.onDragEnd.bind(this));
   }
   
   init(sizeOption) {
@@ -221,6 +231,41 @@ export class DetailsTable {
     }
   }
 
+  onDragEnd() {
+    this.drag.holding = false;
+    this.dataColumn.classList.remove('table-details__data-col--drag');
+  }
+
+  getCursorPosition(e) {
+    const { left } = this.dataColumn.getBoundingClientRect();
+
+    return e.clientX - left;
+  }
+
+  onDragStart(e) {
+    if (this.mediaTablet.matches && this.columnsLength < 4) return;
+
+    e.preventDefault();
+
+    this.dataColumn.classList.add('table-details__data-col--drag');
+
+    this.drag.holding = true;
+    this.drag.mouseX = this.getCursorPosition(e);
+    this.drag.scrollLeft = this.dataColumn.scrollLeft;
+  }
+
+  onDrageTable(e) {
+    if (!this.drag.holding) return;
+
+    e.preventDefault();
+
+    const mouseMoveX = this.getCursorPosition(e);
+
+    let scrollMove = mouseMoveX - this.drag.mouseX;
+
+    this.dataColumn.scrollLeft = this.drag.scrollLeft - scrollMove;
+  }
+
   renderVariantsHead() {
     const sizeTitle = this.sizes.options[this.activeSizeOption].title;
 
@@ -278,7 +323,7 @@ export class DetailsTable {
           }
         </div>
       `;
-      
+
       column.insertAdjacentHTML('afterbegin', template);
       
       const inputEl = column.querySelector('input');
